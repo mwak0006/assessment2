@@ -1,0 +1,40 @@
+---
+title: "Assessment 2"
+author: "Mitchell Wake and Hongmei Zhang"
+date: "2023-11-07"
+output: 
+  bookdown::html_document2:
+    css: "style.css"
+    number_sections: false 
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(ggplot2)
+library(knitr)
+df <- read.csv("data/dataset_world_bank.csv")
+```
+
+# Introduction
+
+
+# Analysis by Mitch
+
+
+
+# Analysis by Hongmei
+
+
+# Conclusion
+
+
+# References
+
+
+
