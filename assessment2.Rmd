@@ -18,8 +18,14 @@ library(tidyverse)
 library(kableExtra)
 library(ggplot2)
 library(knitr)
-df <- read.csv("data/dataset_world_bank.csv")
+df <- read.csv("data/cleaned_data.csv")
+
+
 ```
+
+
+
+
 
 # Introduction
 
