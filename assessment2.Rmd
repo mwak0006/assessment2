@@ -43,6 +43,23 @@ df %>% group_by(Country_Name) %>%
             Ratio_Avg_LifeExp_toHealthExp = mean(LifeExp_Total)/mean(HealthExp_percent_GDP)) %>%
   arrange(-Avg_HealthExp_percent_GDP)
 ```
+```{r}
+df %>% group_by(Year) %>%
+  summarise(Avg_LifeExp = mean(LifeExp_Total),
+            Avg_HealthExp_percent_GDP = mean(HealthExp_percent_GDP),
+            Ratio_Avg_LifeExp_toHealthExp = mean(LifeExp_Total)/mean(HealthExp_percent_GDP)) %>%
+  #arrange(-Avg_HealthExp_percent_GDP)
+```
+
+```{r}
+df %>% group_by(Year) %>%
+  summarise(Avg_LifeExp = mean(LifeExp_Total),
+            Avg_HealthExp_percent_GDP = mean(HealthExp_percent_GDP),
+            Ratio_Avg_LifeExp_toHealthExp = mean(LifeExp_Total)/mean(HealthExp_percent_GDP)) %>%
+  ggplot(aes(x=Avg_HealthExp_percent_GDP,y=Avg_LifeExp)) + 
+  geom_point() +
+  geom_line()
+```
 
 
 
@@ -52,6 +69,9 @@ ggplot(aes(x=HealthExp_percent_GDP,y=LifeExp_Total)) +
   geom_point() +
   facet_wrap(~Year)
 ```
+
+
+
 ```{r}
 df %>%
   ggplot(aes(x = Year, y = LifeExp_Total, color = Country_Name)) +
@@ -60,6 +80,8 @@ df %>%
        x = "Year",
        y = "Life Expectancy")
 ```
+
+
 ```{r}
 df %>%
   ggplot(aes(x = Year, y = HealthExp_percent_GDP, color = Country_Name)) +
@@ -78,17 +100,40 @@ df %>%
   group_by(Year) %>%
   summarize(correlation = cor(LifeExp_Total, HealthExp_percent_GDP, use = "complete.obs"))
 ```
+
+
+
+## Question Two
+
+```{r}
+df %>% group_by(Year) %>%
+  summarise(Avg_MortalityU5 = mean(Mortality_U5_Total),
+            Avg_HealthExp_percent_GDP = mean(HealthExp_percent_GDP),
+            Ratio_Avg_Mortality_toHealthExp = mean(Mortality_U5_Total)/mean(HealthExp_percent_GDP)) %>%
+  arrange(Year)
+```
+
+```{r}
+df %>% group_by(Year) %>%
+  summarise(Avg_MortalityU5 = mean(Mortality_U5_Total),
+            Avg_HealthExp_percent_GDP = mean(HealthExp_percent_GDP),
+            Ratio_Avg_Mortality_toHealthExp = mean(Mortality_U5_Total)/mean(HealthExp_percent_GDP)) %>%
+  ggplot(aes(x=Avg_HealthExp_percent_GDP,y=Avg_MortalityU5)) +
+  geom_point() +
+  geom_line()
+```
 ```{r}
 df %>%
   group_by(Year) %>%
   summarize(correlation = cor(HealthExp_percent_GDP, Mortality_U5_Total, use = "complete.obs"))
 ```
+
 ```{r}
 df %>%
-  ggplot(aes(x = Year, y = Mortality_U5_Total, color = Country_Name)) +
-  geom_line() 
+  ggplot(aes(x = HealthExp_percent_GDP, y = Mortality_U5_Total)) + 
+  geom_point() +
+  geom_smooth()
 ```
-
 
 
 # Analysis by Hongmei
