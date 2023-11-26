@@ -20,10 +20,7 @@ library(ggplot2)
 library(knitr)
 df <- read.csv("data/cleaned_data.csv")
 
-
 ```
-
-
 
 
 
@@ -31,6 +28,66 @@ df <- read.csv("data/cleaned_data.csv")
 
 
 # Analysis by Mitch
+
+```{r}
+glimpse(df)
+```
+```{r}
+df %>% filter(Country_Name == "Australia")
+```
+
+```{r}
+df %>% group_by(Country_Name) %>%
+  summarise(Avg_LifeExp = mean(LifeExp_Total),
+            Avg_HealthExp_percent_GDP = mean(HealthExp_percent_GDP),
+            Ratio_Avg_LifeExp_toHealthExp = mean(LifeExp_Total)/mean(HealthExp_percent_GDP)) %>%
+  arrange(-Avg_HealthExp_percent_GDP)
+```
+
+
+
+```{r}
+df %>%
+ggplot(aes(x=HealthExp_percent_GDP,y=LifeExp_Total)) +
+  geom_point() +
+  facet_wrap(~Year)
+```
+```{r}
+df %>%
+  ggplot(aes(x = Year, y = LifeExp_Total, color = Country_Name)) +
+  geom_line() +
+  labs(title = "Life Expectancy Over Years",
+       x = "Year",
+       y = "Life Expectancy")
+```
+```{r}
+df %>%
+  ggplot(aes(x = Year, y = HealthExp_percent_GDP, color = Country_Name)) +
+  geom_line() +
+  labs(title = "Health Expenditure % GDP Over Years",
+       x = "Year",
+       y = "Health Exp")
+```
+
+```{r}
+cor(df$LifeExp_Total,df$HealthExp_percent_GDP)
+```
+
+```{r}
+df %>%
+  group_by(Year) %>%
+  summarize(correlation = cor(LifeExp_Total, HealthExp_percent_GDP, use = "complete.obs"))
+```
+```{r}
+df %>%
+  group_by(Year) %>%
+  summarize(correlation = cor(HealthExp_percent_GDP, Mortality_U5_Total, use = "complete.obs"))
+```
+```{r}
+df %>%
+  ggplot(aes(x = Year, y = Mortality_U5_Total, color = Country_Name)) +
+  geom_line() 
+```
 
 
 
