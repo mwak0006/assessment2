@@ -38,7 +38,7 @@ In this analysis we aim to explore the relationship between Gross Net Income (GN
 
 In the first figure \@ref(fig:scatterplot1), a scatterplot shows the relationship between Mortality Rates among children under 5 and GNI Per Capita for OECD countries spanning the years 2000 to 2022. The plot illustrates a downward trend, indicating that as GNI Per Capita rises, there is a tendency for infant mortality to decline.
 
-```{r scatterplot1, fig.cap="Scatter Plot of Mortality Rate Under 5 years and GNI Per Capita"}
+```{r scatterplot1, fig.cap="Scatter Plot of Mortality Rate Under 5 years and GNI Per Capita", message=FALSE}
 df %>%
   ggplot(aes(x = GNIPerCapita, y = Mortality_U5_Total)) + 
   geom_point() +
@@ -65,8 +65,8 @@ To measure the strength of these associations, correlation coefficients were cal
 
 ```{r correlations, fig.cap="GNI Per Capita Correlation to Mortality and Life Expectancy"}
 df %>%
-  summarize(Mortality_U5_correlation = cor(GNIPerCapita, Mortality_U5_Total, use = "complete.obs"),
-            LifeExp_correlation = cor(GNIPerCapita, LifeExp_Total, use = "complete.obs")
+  summarize(Mortality_U5_correlation = round(cor(GNIPerCapita, Mortality_U5_Total, use = "complete.obs"),3),
+            LifeExp_correlation = round(cor(GNIPerCapita, LifeExp_Total, use = "complete.obs"),3)
             ) %>% kable(caption="GNI Per Capita Correlation to Mortality and Life Expectancy" ) %>% kable_styling(full_width = FALSE,position='left')
 ```
 
