@@ -43,6 +43,7 @@ df %>%
   ggplot(aes(x = GNIPerCapita, y = Mortality_U5_Total)) + 
   geom_point() +
   geom_smooth( se = FALSE) +
+  theme_minimal() +
   labs(title="Scatter Plot of Mortality Rate Under 5 years and GNI Per Capita",
        subtitle="OECD Countries from 2000 to 2022",
        y="Mortality Rate Under 5 years",
@@ -55,6 +56,7 @@ df %>%
   ggplot(aes(x = GNIPerCapita, y = LifeExp_Total)) + 
   geom_point() +
   geom_smooth( se = FALSE) +
+  theme_minimal() +
   labs(title="Scatter Plot of Life Expectancy and GNI Per Capita",
        subtitle="OECD Countries from 2000 to 2022",
        y="Life Expectancy at birth",
