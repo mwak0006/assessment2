@@ -1,0 +1,7 @@
+﻿Variable_Name,Description
+Year,Year of Observation
+Country_Name,Name of Country
+LifeExp_Total,Life expectancy at birth: the expected lifespan of a newborn based on prevailing mortality patterns at the time of birth.
+GNIPerCapita,"GNI per capita is the gross national income, converted to U.S. dollars using the World Bank Atlas method, divided by the midyear population. "
+Mortality_U5_Total,"Under-five mortality rate is the probability per 1,000 that a newborn baby will die before reaching age five, if subject to age-specific mortality rates of the specified year."
+HealthExp_percent_GDP,Level of current health expenditure expressed as a percentage of GDP.

@@ -7,6 +7,7 @@ output:
     css: "style.css"
     number_sections: false 
 bibliography: references.bib
+csl: apa.csl
 ---
 
 ```{r setup, include=FALSE}
@@ -28,9 +29,20 @@ df <- read.csv("data/cleaned_data.csv")
 
 # Introduction
 
-In recent years, the relationship between economic indicators and health outcomes has become a focal point of research, especially within the context of OECD countries. This study aims to explore two critical aspects: the correlation between Gross Net Income (GNI) per Capita and key health indicators, and the impact of health expenditure on health outcomes. Our research is guided by two primary questions. Firstly, we investigate the relationship between GNI Per Capita and the infant mortality rate among children under 5 years. Secondly, we explore the correlation between GNI Per Capita and life expectancy at birth. The significance of this study lies in its potential to uncover the intricacies of how economic prosperity, as measured by GNI per capita, influences essential health metrics like infant mortality and life expectancy.
+In recent years, the relationship between economic indicators and health outcomes has become a focal point of research, especially within the context of OECD countries. This study aims to explore two critical economic aspects: Gross Net Income (GNI) per Capita and Health Expenditure as a percentage of GDP and the impact these measures have on health outcomes. Our research is guided by two primary questions. Firstly, we investigate the relationship between GNI Per Capita and the infant mortality rate among children under 5 years. Secondly, we explore the correlation between GNI Per Capita and life expectancy at birth. The significance of this study lies in its potential to uncover the intricacies of how economic prosperity, as measured by GNI per capita, influences essential health metrics like infant mortality and life expectancy.
 
 Moreover, the study extends to a detailed examination of health expenditure as a percentage of GDP and its relation to life expectancy and infant mortality rates. We delve into various healthcare systems, ranging from universal to insurance-based and mixed systems, providing a broader perspective on healthcare efficiency across different economic and demographic backgrounds. This comparative analysis is crucial for understanding how healthcare investment affects health outcomes and for identifying potential areas for policy improvement. Special attention is given to the case studies of countries like Mexico and South Korea, which have undergone significant health reforms, and Japan, known for its large population and aging demographics. Through this multifaceted approach, the research aims to offer valuable insights into the dynamics of health economics, shedding light on the effectiveness of healthcare spending and the factors influencing health outcomes in diverse settings.
+
+
+For our analysis, we utilised the [World Development Indicators dataset](https://databank.worldbank.org/source/world-development-indicators#) provided by the World Bank. We focused on data spanning from 2000 to 2020 for OECD countries, with the exception of Greece, where data was excluded due to missing values. The variables considered for our analysis include:
+
+
+
+```{r echo=FALSE}
+vardescription <- read.csv("data/variable_description.csv")
+vardescription %>% kable(caption="Variable Descriptions" ) %>% kable_styling(full_width = FALSE,position='left')
+```
+
 
 
 # Analysis by Mitch
@@ -79,7 +91,7 @@ df %>%
 ```
 
 
-Our second table @ref(tab:table2) examines the 10 countries in the OECD with the lowest Average GNI Per Capita from 2000 to 2020. It also includes the Rank of Life Expectancy and Mortality among the 37 countries. Notably, the analysis reveals that the 5 countries with the lowest Average GNI per Capita exhibit the lowest (unordered) ranks for Mortality and also demonstrate lower ranks for Life Expectancy. These findings suggest an association between lower GNI per Capita and weaker trends in Life Expectancy and Infant Mortality.
+Our second table \@ref(tab:table2) examines the 10 countries in the OECD with the lowest Average GNI Per Capita from 2000 to 2020. It also includes the Rank of Life Expectancy and Mortality among the 37 countries. Notably, the analysis reveals that the 5 countries with the lowest Average GNI per Capita exhibit the lowest (unordered) ranks for Mortality and also demonstrate lower ranks for Life Expectancy. These findings suggest an association between lower GNI per Capita and weaker trends in Life Expectancy and Infant Mortality.
 
 
 ```{r table2, fig.cap="Countries with 10 Lowest Average GNI Per Capita"}
@@ -189,7 +201,11 @@ In conclusion, this study provides critical evidence of the links between econom
 
 
 # References
-Phebe A Owusu, Samuel A Sarkodie(2021).Relationship between mortality and health care expenditure:Sustainable assessment of healthcare system. https://doi.org/10.1371/journal.pone.0247413.
+
+---
+nocite: |
+  @mortandhealth, @worldbank_wdi
+---
 
 
 
