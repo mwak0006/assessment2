@@ -37,7 +37,6 @@ Moreover, the study extends to a detailed examination of health expenditure as a
 For our analysis, we utilised the [World Development Indicators dataset](https://databank.worldbank.org/source/world-development-indicators#) provided by the World Bank. We focused on data spanning from 2000 to 2020 for OECD countries, with the exception of Greece, where data was excluded due to missing values. The variables considered for our analysis include:
 
 
-
 ```{r echo=FALSE}
 vardescription <- read.csv("data/variable_description.csv")
 vardescription %>% kable(caption="Variable Descriptions" ) %>% kable_styling(full_width = FALSE,position='left')
@@ -49,12 +48,12 @@ vardescription %>% kable(caption="Variable Descriptions" ) %>% kable_styling(ful
 
 In this analysis we aim to explore the relationship between Gross Net Income (GNI) per Capita and key health indicators, specifically focusing on infant mortality and life expectancy. The two research questions are as follows
 
-1. Is there a relationship between GNI Per Capita and the infant mortality rate among children aged less than 5 years in OECD Countries.
+1. Is there a relationship between GNI Per Capita and the infant mortality rate among children aged less than 5 years in OECD Countries?
 
-2. Is there a relationship between GNI Per Capita and life expectancy at birth of countries in the OECD 
+2. Is there a relationship between GNI Per Capita and life expectancy at birth of countries in the OECD?
 
 
-In the first figure \@ref(fig:scatterplot1), a scatterplot shows the relationship between Mortality Rates among children under 5 and GNI Per Capita for OECD countries spanning the years 2000 to 2022. The plot illustrates a downward trend, indicating that as GNI Per Capita rises, there is a tendency for infant mortality to decline.
+In the Figure \@ref(fig:scatterplot1), a scatterplot shows the relationship between Mortality Rates among children under 5 and GNI Per Capita for OECD countries spanning the years 2000 to 2022. The plot illustrates a downward trend, indicating that as GNI Per Capita rises, there is a tendency for infant mortality to decline.
 
 ```{r scatterplot1, fig.cap="Scatter Plot of Mortality Rate Under 5 years and GNI Per Capita", message=FALSE}
 df %>%
@@ -67,9 +66,9 @@ df %>%
        y="Mortality Rate Under 5 years",
        x="GNI Per Capita") 
 ```
-In the second figure \@ref(fig:scatterplot2), a scatterplot shows the relationship between Life Expectancy at birth and GNI Per Capita for OECD countries spanning the years 2000 to 2022. The plot illustrates an upward trend, indicating that as GNI Per Capita rises, Life Expectancy increases.
+In the next Figure \@ref(fig:scatterplot2), a scatterplot shows the relationship between Life Expectancy at birth and GNI Per Capita for OECD countries spanning the years 2000 to 2022. The plot illustrates an upward trend, indicating that as GNI Per Capita rises, Life Expectancy increases.
 
-```{r scatterplot2, fig.cap="Scatter Plot of Life Expectancy and GNI Per Capita"}
+```{r scatterplot2, fig.cap="Scatter Plot of Life Expectancy and GNI Per Capita", message=FALSE}
 df %>%
   ggplot(aes(x = GNIPerCapita, y = LifeExp_Total)) + 
   geom_point() +
@@ -91,7 +90,7 @@ df %>%
 ```
 
 
-Our second table \@ref(tab:table2) examines the 10 countries in the OECD with the lowest Average GNI Per Capita from 2000 to 2020. It also includes the Rank of Life Expectancy and Mortality among the 37 countries. Notably, the analysis reveals that the 5 countries with the lowest Average GNI per Capita exhibit the lowest (unordered) ranks for Mortality and also demonstrate lower ranks for Life Expectancy. These findings suggest an association between lower GNI per Capita and weaker trends in Life Expectancy and Infant Mortality.
+In the next Table \@ref(tab:table2) it examines the 10 countries in the OECD with the lowest Average GNI Per Capita from 2000 to 2020. It also includes the Rank of Life Expectancy and Mortality among the 37 countries. Notably, the analysis reveals that the 5 countries with the lowest Average GNI per Capita exhibit the lowest (unordered) ranks for Mortality and also demonstrate lower ranks for Life Expectancy. These findings suggest an association between lower GNI per Capita and poorer health outcomes in relation to Life Expectancy and Infant Mortality.
 
 
 ```{r table2, fig.cap="Countries with 10 Lowest Average GNI Per Capita"}
@@ -193,7 +192,9 @@ Table 2 reveals a general trend where health expenditure in most countries has a
 
 # Conclusion
 
-Our comprehensive analysis of the relationship between economic indicators and health outcomes in OECD countries has yielded significant insights. The study reveals a clear correlation between GNI per Capita and key health indicators such as infant mortality and life expectancy. Specifically, a higher GNI per Capita tends to be associated with lower infant mortality rates and increased life expectancy. This correlation underscores the importance of economic prosperity in enhancing overall health outcomes. However, the study also highlights the complexity of this relationship, as different countries exhibit varied trends depending on their healthcare systems and economic structures.
+ 
+
+Our comprehensive analysis of the relationship between economic indicators and health outcomes within OECD countries from 2000 to 2022 has yielded insightful results. Our first analysis focusing on GNI per Capita resulted in a downward trend in infant mortality rates as GNI per Capita rises, underscoring the impact of economic prosperity on child health. Simultaneously, there was an upward trend in life expectancy with increasing GNI per Capita highlighting the positive association between economic well-being and overall life expectancy. The examination of the 10 countries with the lowest Average GNI per Capita further supported these trends, indicating that lower economic prosperity is linked to weaker life expectancy and higher infant mortality rates.
 
 Furthermore, the examination of health expenditure as a percentage of GDP reveals a generally negative correlation with infant mortality rates and a positive correlation with life expectancy. This finding suggests that higher healthcare investment is beneficial, but the impact is not uniform across all OECD countries. The cases of the USA and Mexico are particularly illuminating. Despite high health expenditure, the USA shows a less pronounced increase in life expectancy, while Mexico, with its unique challenges, demonstrates that high spending does not always translate into better health outcomes. These variations point to the necessity of considering factors beyond financial investment, such as efficiency of healthcare delivery and socio-economic conditions.
 
