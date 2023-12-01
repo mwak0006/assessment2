@@ -52,61 +52,95 @@ In this analysis we aim to explore the relationship between Gross Net Income (GN
 
 2. Is there a relationship between GNI Per Capita and life expectancy at birth of countries in the OECD?
 
+**Visualisations**
 
-In the Figure \@ref(fig:scatterplot1), a scatterplot shows the relationship between Mortality Rates among children under 5 and GNI Per Capita for OECD countries spanning the years 2000 to 2022. The plot illustrates a downward trend, indicating that as GNI Per Capita rises, there is a tendency for infant mortality to decline.
+The visualisations comprises two scatterplots that highlight the relationship between GNI Per Capita and the health indicators— mortality rates among children under 5 (infant mortality rates) and life expectancy. The visualisations encompasses all OECD countries from 2000 to 2022.
+
+The Figure \@ref(fig:scatterplot1) unveils a downward trend in infant mortality rates, suggesting that as GNI Per Capita increases, there is a corresponding decline in infant mortality rates.
+
 
 ```{r scatterplot1, fig.cap="Scatter Plot of Mortality Rate Under 5 years and GNI Per Capita", message=FALSE}
-df %>%
-  ggplot(aes(x = GNIPerCapita, y = Mortality_U5_Total)) + 
-  geom_point() +
-  geom_smooth( se = FALSE) +
+p <- df %>% 
+  ggplot(aes(x = GNIPerCapita, y = Mortality_U5_Total,colour=Country_Name)) + 
+  geom_point(size=0.8) +
+  geom_smooth(method = "loess", se = FALSE, color = "blue") +
   theme_minimal() +
   labs(title="Scatter Plot of Mortality Rate Under 5 years and GNI Per Capita",
        subtitle="OECD Countries from 2000 to 2022",
        y="Mortality Rate Under 5 years",
-       x="GNI Per Capita") 
+       x="GNI Per Capita US$")
+
+p %>% ggplotly()
 ```
-In the next Figure \@ref(fig:scatterplot2), a scatterplot shows the relationship between Life Expectancy at birth and GNI Per Capita for OECD countries spanning the years 2000 to 2022. The plot illustrates an upward trend, indicating that as GNI Per Capita rises, Life Expectancy increases.
+
+
+Moving on to Figure \@ref(fig:scatterplot2), the plot illustrates an upward trend in life expectancy, indicating that as GNI Per Capita rises, life expectancy at birth also tends to increase.
+
+
 
 ```{r scatterplot2, fig.cap="Scatter Plot of Life Expectancy and GNI Per Capita", message=FALSE}
-df %>%
-  ggplot(aes(x = GNIPerCapita, y = LifeExp_Total)) + 
-  geom_point() +
-  geom_smooth( se = FALSE) +
+p2 <- df %>%
+  ggplot(aes(x = GNIPerCapita, y = LifeExp_Total, colour=Country_Name)) + 
+  geom_point(size=0.8) +
+  geom_smooth(method = "loess", se = FALSE, color = "blue") +
   theme_minimal() +
   labs(title="Scatter Plot of Life Expectancy and GNI Per Capita",
        subtitle="OECD Countries from 2000 to 2022",
        y="Life Expectancy at birth",
-       x="GNI Per Capita") 
-```
-To measure the strength of these associations, correlation coefficients were calculated for GNI Per Capita with Mortality Rates and Life Expectancy. Referring to Table \@ref(tab:correlations), the results show a moderately negative correlation of **-0.526** between GNI and Mortality, indicating an inverse relationship. Conversely, a positive correlation of **0.706** is observed between GNI and Life Expectancy, showing a strong positive relationship.
-
-
-```{r correlations, fig.cap="GNI Per Capita Correlation to Mortality and Life Expectancy"}
-df %>%
-  summarize(Mortality_U5_correlation = round(cor(GNIPerCapita, Mortality_U5_Total, use = "complete.obs"),3),
-            LifeExp_correlation = round(cor(GNIPerCapita, LifeExp_Total, use = "complete.obs"),3)
-            ) %>% kable(caption="GNI Per Capita Correlation to Mortality and Life Expectancy" ) %>% kable_styling(full_width = FALSE,position='left')
+       x="GNI Per Capita US$") 
+p2 %>% ggplotly()
 ```
 
+**Tables**
 
-In the next Table \@ref(tab:table2) it examines the 10 countries in the OECD with the lowest Average GNI Per Capita from 2000 to 2020. It also includes the Rank of Life Expectancy and Mortality among the 37 countries. Notably, the analysis reveals that the 5 countries with the lowest Average GNI per Capita exhibit the lowest (unordered) ranks for Mortality and also demonstrate lower ranks for Life Expectancy. These findings suggest an association between lower GNI per Capita and poorer health outcomes in relation to Life Expectancy and Infant Mortality.
+While the earlier scatterplots illustrated general trends in these relationships between GNI per Capita, Life Expectancy and Mortality, we will now quantify them to provide a more precise understanding of the associations. To delve deeper into these relationships, we focused on 20 Countries with the Highest and Lowest Average GNI Per Capita across the 20-year period.
 
 
-```{r table2, fig.cap="Countries with 10 Lowest Average GNI Per Capita"}
+
+```{r tableavg1, fig.cap="Countries with 10 Highest Average GNI Per Capita"}
 df %>% group_by(Country_Name) %>%
   summarise("Avg GNI Per Capita" = round(mean(GNIPerCapita),2),
             "Avg Life Expectancy" = round(mean(LifeExp_Total),2),
-            "Avg Mortality U5" = round(mean(Mortality_U5_Total),2)) %>%
+            "Avg Mortality U5" = round(mean(Mortality_U5_Total),2),
+            Mortality_Correlation = round(cor(GNIPerCapita, Mortality_U5_Total, use = "complete.obs"),3),
+            LifeExp_Correlation = round(cor(GNIPerCapita, LifeExp_Total, use = "complete.obs"),3)) %>%
+  arrange(`Avg GNI Per Capita`) %>%
+  mutate("Rank Life Expectancy" = rank(-`Avg Life Expectancy`),
+         "Rank Mortality U5" = rank(`Avg Mortality U5`)) %>%
+  arrange(-`Avg GNI Per Capita`) %>% head(10) %>% kable(caption="Countries with 10 Highest Average GNI Per Capita") %>% kable_styling(full_width = FALSE, position = "left")
+```
+
+Referring to the Table \@ref(tab:tableavg1) of the 10 Countries with the Highest Average GNI per Capita, we can see that as GNI per capita increases, there is a tendency for mortality rates to decrease. The negative correlations for mortality rates for these countries range from -0.574 to -0.971, indicating a strong negative association between GNI per capita and mortality rates. The relationship between GNI per Capita and Life Expectancy is positive across the selected countries. As GNI per capita increases, there is a general tendency for life expectancy to rise. The correlation of GNI to Life Expectancy for these countries ranges from 0.661 to 0.928, indicating a strong positive association between GNI per capita and life expectancy. The higher correlations suggest the significant impact of economic prosperity on increasing life expectancy.
+
+Specific Country Insights:
+
+- United States: Despite a relatively high GNI per capita, it exhibits lower life expectancy and higher mortality rates under 5 compared to some other high-GNI countries.
+
+- Denmark: Noteworthy for a high GNI per capita but a lower rank in life expectancy
+
+
+```{r tableavg2, fig.cap="Countries with 10 Lowest Average GNI Per Capita"}
+df %>% group_by(Country_Name) %>%
+  summarise("Avg GNI Per Capita" = round(mean(GNIPerCapita),2),
+            "Avg Life Expectancy" = round(mean(LifeExp_Total),2),
+            "Avg Mortality U5" = round(mean(Mortality_U5_Total),2),
+            Mortality_Correlation = round(cor(GNIPerCapita, Mortality_U5_Total, use = "complete.obs"),3),
+            LifeExp_Correlation = round(cor(GNIPerCapita, LifeExp_Total, use = "complete.obs"),3)) %>%
   arrange(`Avg GNI Per Capita`) %>%
   mutate("Rank Life Expectancy" = rank(-`Avg Life Expectancy`),
          "Rank Mortality U5" = rank(`Avg Mortality U5`)) %>%
   arrange(`Avg GNI Per Capita`) %>% head(10) %>% kable(caption="Countries with 10 Lowest Average GNI Per Capita") %>% kable_styling(full_width = FALSE, position = "left")
 ```
+In the next Table \@ref(tab:tableavg2) it examines the 10 Countries with lowest average GNI per Capita. The data suggests a negative relationship between GNI per Capita and infant mortality rates for these countries. As GNI per capita decreases, there is a tendency for infant mortality rates to increase. The negative correlations for these countries range from -0.813 to -0.980, indicating a strong negative association between lower GNI per capita and higher mortality rates. The stronger negative correlations suggest a more pronounced impact of economic challenges on child mortality.
+The relationship between GNI per Capita and Life Expectancy is positive, suggesting that as GNI per capita increases, there is a tendency for life expectancy to increase as well. Notably Mexicos correlation of 0.249 appears to be an outlier of the group with others showing strong correlations of greater than 0.8.
+Additionally, the analysis reveals that the 5 countries with the lowest Average GNI per Capita exhibit the lowest (unordered) ranks for Mortality and also demonstrate lower ranks for Life Expectancy. These findings suggest an association between lower GNI per Capita and poorer health outcomes in relation to Life Expectancy and Infant Mortality.
 
 
+Specific Country Insights:
 
+- Mexico : Demonstrates relatively low GNI per capita, lower life expectancy, and higher mortality rates, indicating potential challenges in public health.
 
+- Costa Rica: Despite having second lowest Avg GNI in the group, it shows longest life expectancy, suggesting other contributing factors.
 
 
 
