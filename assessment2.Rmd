@@ -31,7 +31,7 @@ df <- read.csv("data/cleaned_data.csv")
 
 In recent years, the relationship between economic indicators and health outcomes has become a focal point of research, especially within the context of OECD countries. This study aims to explore two critical economic aspects: Gross Net Income (GNI) per Capita and Health Expenditure as a percentage of GDP and the impact these measures have on health outcomes. Our research is guided by two primary questions. Firstly, we investigate the relationship between GNI Per Capita and the infant mortality rate among children under 5 years. Secondly, we explore the correlation between GNI Per Capita and life expectancy at birth. The significance of this study lies in its potential to uncover the intricacies of how economic prosperity, as measured by GNI per capita, influences essential health metrics like infant mortality and life expectancy.
 
-Moreover, the study extends to a detailed examination of health expenditure as a percentage of GDP and its relation to life expectancy and infant mortality rates. We delve into various healthcare systems, ranging from universal to insurance-based and mixed systems, providing a broader perspective on healthcare efficiency across different economic and demographic backgrounds. This comparative analysis is crucial for understanding how healthcare investment affects health outcomes and for identifying potential areas for policy improvement. Special attention is given to the case studies of countries like Mexico and South Korea, which have undergone significant health reforms, and Japan, known for its large population and aging demographics. Through this multifaceted approach, the research aims to offer valuable insights into the dynamics of health economics, shedding light on the effectiveness of healthcare spending and the factors influencing health outcomes in diverse settings.
+Moreover, the study investigates the correlation between health expenditure and key health indicators in OECD countries. We analyze how health expenditure as a percentage of GDP relates to  life expectancy at birth and infant mortality rates under 5. This section includes a diverse array of OECD countries, encompassing varied healthcare systems and recent health reforms. Our goal is to discern the impact of healthcare investments on life expectancy and infant mortality, and explore the effectiveness of different healthcare structures. By examining these relationships, we aim to shed light on the interplay between financial investment in healthcare and its tangible outcomes in different region, offering insights into the nuanced roles of healthcare spending and system efficiency in improving health outcomes.
 
 
 For our analysis, we utilised the [World Development Indicators dataset](https://databank.worldbank.org/source/world-development-indicators#) provided by the World Bank. We focused on data spanning from 2000 to 2020 for OECD countries, with the exception of Greece, where data was excluded due to missing values. The variables considered for our analysis include:
@@ -152,16 +152,17 @@ In this section, our research concentrates on examining the correlation between 
 
 
 ```{r figure-plot, fig.cap="Health Expenditure vs Life Expectation at Birth in OECD Countries"}
-
 # Plotting the relationship between health expenditure and life expectation for each year
-ggplot(df, aes(x = HealthExp_percent_GDP, y = LifeExp_Total)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "blue") + # Adds a linear regression line
+p <- ggplot(df, aes(x = HealthExp_percent_GDP, y = LifeExp_Total, color = Country_Name)) +
+  geom_point(size=1) +
+  geom_smooth(method = "lm",  formula = y ~ x, se = FALSE, color = "blue") +
   labs(title = "Health Expenditure vs Life Expectation in OECD Countries",
        x = "Health Expenditure as % of GDP", 
        y = "Life Expectation at Birth") +
   theme_minimal()
-
+# Convert the ggplo to an interactive plot
+interactive_plot <- ggplotly(p)
+interactive_plot
 ```
 
 As show in Figure \@ref(fig:figure-plot), it illustrates a discernible **positive** relationship between health expenditure as a percentage of GDP and life expectancy at birth in OECD countries. This trend implies a potential association between greater health care investment and improved health outcomes, as evidenced by increased life expectancy. 
@@ -169,29 +170,27 @@ As show in Figure \@ref(fig:figure-plot), it illustrates a discernible **positiv
 (2) The relationship between health expenditure with mortality rate under 5 in representative countries
 
 ```{r figure-plot2, fig.cap="Health Expenditure vs Mortality Rate in representative countries of OECD"}
-
 representative_countries <- c("USA", "CAN", "GBR", "DEU", "SWE",
                               "NZL", "MEX", "JPN", "KOR", "AUS")
-
 # Filter the dataset
 filtered_data <- df %>%
                  filter(Country_Code %in% representative_countries)
 # Plot the relationship between health expenditure and mortality rate in representative countries
-p <- ggplot(filtered_data, aes(x = HealthExp_percent_GDP, y = Mortality_U5_Total, text = Country_Name)) +
+p1 <- ggplot(filtered_data, aes(x = HealthExp_percent_GDP, y = Mortality_U5_Total, text = Country_Name)) +
      geom_line(aes(color = Country_Name)) +
      labs(title = "Health Expenditure vs Mortality Rate in representative countries of OECD",
           x = "Health Expenditure",
           y = "Mortality Rate Under 5") +
      theme_minimal()
-interactive_plot <- ggplotly(p, tooltip = c("text", "x", "y"))
-interactive_plot
+interactive_plot1 <- ggplotly(p1, tooltip = c("text", "x", "y"))
+interactive_plot1
 ```
 
-In the Figure \@ref(fig:figure-plot2),  ten representative OECD countries were carefully selected to encompass a variety of healthcare systems, including universal healthcare, insurance-based, and mixed systems. The selection also includes countries that have undergone significant health reforms, such as Mexico and South Korea, and those with notable demographic characteristics, like Japan's large population and aging society. This figure illustrates the relationship between health expenditure and infant mortality rates in these countries. A general trend is observed where higher health expenditure correlates with lower infant mortality rates, indicating a significant **negative** correlation and highlighting the impact of financial investment on health outcomes. **Notably**, the USA stands out with its higher level of health expenditure compared to other countries. However, Mexico deviates from this general trend, exhibiting a fluctuating relationship and a higher infant mortality rate than might be expected given its health expenditure level. This anomaly suggests that factors other than expenditure, such as efficiency of healthcare delivery or socio-economic conditions, may also play a critical role in determining health outcomes.
+In the Figure \@ref(fig:figure-plot2),  ten representative OECD countries were carefully selected to encompass a variety of healthcare systems, including universal healthcare, insurance-based, and mixed systems. The selection also includes countries that have undergone significant health reforms, such as Mexico and South Korea, and those with notable demographic characteristics, like Japan's large population and aging society. This figure illustrates the relationship between health expenditure and infant mortality rates in these countries and most of countries health expenditure is between 7.5% and 12.5%. A general trend is observed where higher health expenditure correlates with lower infant mortality rates, indicating a significant **negative** correlation and highlighting the impact of financial investment on health outcomes in most of countries. **Notably**, the USA stands out with its higher level of health expenditure compared to other countries. However, Mexico deviates from this general trend, exhibiting a fluctuating relationship and a higher infant mortality rate than might be expected given its health expenditure level. This anomaly suggests that factors other than expenditure, such as efficiency of healthcare delivery or socio-economic conditions, may also play a critical role in determining health outcomes.
 
 (3) Summary statistics of health expenditure and health outcome indicators in the selected countries
 
-```{r}
+```{r table1}
 # Calculate summary statistics
 summary_stats <- filtered_data %>%
   group_by(Country_Name) %>%
@@ -205,11 +204,11 @@ kable(summary_stats, caption = "Summary Statistics of Health Expenditure and Hea
   kable_styling(full_width = TRUE)
 ```
 
-Table 1 provides a summary of the mean and variance in health expenditure alongside key health indicators, presenting a thorough quantitative analysis. The USA stands out with the highest health expenditure, yet it also shows a relatively higher variance in this spending, as well as in mortality rates. In contrast, Canada displays high average health expenditure, but with much lower variance, demonstrating consistency in its healthcare investments. On the other hand, countries like Mexico and Korea present notable variances in their health expenditure, suggesting complex underlying dynamics that merit deeper investigation. Intriguingly, Japan achieves a higher life expectancy and lower mortality rate with moderate health expenditure, underscoring the potential efficiency of its insurance-based health system. 
+Table \@ref(tab:table1) provides a summary of the mean and variance in health expenditure alongside key health indicators, presenting a thorough quantitative analysis. The USA stands out with the highest health expenditure, yet it also shows a relatively higher variance in this spending, as well as in mortality rates. In contrast, Canada displays high average health expenditure, but with much lower variance, demonstrating consistency in its healthcare investments. On the other hand, countries like Mexico and Korea present notable variances in their health expenditure, suggesting complex underlying dynamics that merit deeper investigation. Intriguingly, Japan achieves a higher life expectancy and lower mortality rate with moderate health expenditure, underscoring the potential efficiency of its insurance-based health system. 
 
 (4) Correlation between health expenditure with health outcome indicators
 
-```{r}
+```{r table2}
 # Correlation between Health Expenditure, Mortality under 5 and Life Expectancy at birth
 correlation_stats <- filtered_data %>%
     group_by(Country_Name) %>%
@@ -219,10 +218,9 @@ correlation_stats <- filtered_data %>%
       )
 kable(correlation_stats, caption = "Correlation between Health Expenditure, Mortality under 5 and Life Expectancy", format = "html") %>%
   kable_styling(full_width = TRUE)
-
 ```
 <br>
-Table 2 reveals a general trend where health expenditure in most countries has a **strong negative** correlation with the mortality rate under 5 years and a positive correlation with life expectancy. However, there are notable exceptions. The United States, for example, despite its high health expenditure, shows a relatively lower positive correlation (0.6117293) with life expectancy. This suggests that increased spending does not correspond with a proportionate increase in life expectancy, possibly reflecting inefficiencies or other influencing factors. Mexico presents a distinct case, displaying a much weaker negative correlation with life expectancy (-0.1723541) and a less pronounced relationship between health expenditure and the reduction of mortality under 5 years. These anomalies in the Mexican context point towards potential systemic issues in healthcare delivery or socio-economic factors impacting health outcomes.
+Table \@ref(tab:table2) reveals a general trend where health expenditure in most countries has a **strong negative** correlation with the mortality rate under 5 years and a **positive** correlation with life expectancy. However, there are notable exceptions. The United States, for example, despite its high health expenditure, shows a relatively lower positive correlation (0.6117293) with life expectancy. This suggests that increased spending does not correspond with a proportionate increase in life expectancy, possibly reflecting inefficiencies or other influencing factors. Mexico presents a distinct case, displaying a much weaker negative correlation with life expectancy (-0.1723541) and a less pronounced relationship between health expenditure and the reduction of mortality under 5 years. These anomalies in the Mexican context point towards potential systemic issues in healthcare delivery or socio-economic factors impacting health outcomes.
 
 # Conclusion
 
