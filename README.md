@@ -1,6 +1,6 @@
 # Assessment 2
 
-Our project, conducted as part of an assessment at Monash University, analyses the World Development Indicators dataset, located here https://databank.worldbank.org/source/world-development-indicators#
+Our project, conducted as part of an assessment at Monash University, analyses the World Development Indicators datas. The dataset is sourced from the World Bank and can be accessed here https://databank.worldbank.org/source/world-development-indicators#
 
 The project directory includes a data folder containing a script to clean the data, the original dataset, and the cleaned dataset in a CSV file. The main analysis is presented in the assessment2.rmd file, and the final HTML output can be found in assessment2.html.
 
@@ -16,10 +16,10 @@ The project directory includes a data folder containing a script to clean the da
 
 ## Data
 
-The data folder contains both the original and cleaned datasets. The cleaning process is documented in the clean_data_script.R file.
+The data folder contains both the original dataset from the World Bank and cleaned version. The cleaning process is documented in the clean_data_script.R file.
 
 ## Results
-The final results of the analysis are presented in the assessment2.html file.
+The final results of the analysis, including visualizations and interpretations are presented in the `assessment2.html` file.
 
 ## Licence
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the MIT License.For more details, see LICENSE.md file in this repository.
