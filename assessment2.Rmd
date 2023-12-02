@@ -44,7 +44,8 @@ vardescription %>% kable(caption="Variable Descriptions" ) %>% kable_styling(ful
 
 
 
-# Analysis by Mitch
+# Income and Health Dynamics: Infant Mortality vs. Life Expectancy
+**Analysis by Mitchell Wake**
 
 Gross Net Income (GNI) and other factors have been found to be strong determinants of a populations health [@GNIeffect]. In this analysis we aim to explore the relationship between Gross Net Income (GNI) per Capita and key health indicators, specifically focusing on infant mortality and life expectancy The two research questions are as follows
 
@@ -54,7 +55,7 @@ Gross Net Income (GNI) and other factors have been found to be strong determinan
 
 **Visualisations**
 
-The visualisations comprises two scatterplots that highlight the relationship between GNI Per Capita and the health indicators— mortality rates among children under 5 (infant mortality rates) and life expectancy. The visualisations encompasses all OECD countries from 2000 to 2022.
+The analysis comprises two scatterplots that highlight the relationship between GNI Per Capita and health indicators, specifically mortality rates among children under 5 (infant mortality rates) and life expectancy. These visualizations include data from all OECD countries (except Greece) spanning the years 2000 to 2022.
 
 The Figure \@ref(fig:scatterplot1) unveils a downward trend in infant mortality rates, suggesting that as GNI Per Capita increases, there is a corresponding decline in infant mortality rates.
 
@@ -144,7 +145,8 @@ Specific Country Insights:
 
 
 
-# Analysis by Hongmei
+# Health Expenditure Impact on Infant Mortality and Life Expectancy 
+**Analysis by Hongmei Zhang**
 
 In this section, our research concentrates on examining the correlation between health expenditure as a percentage of GDP and overall life expectancy at birth to understand if higher healthcare investment translates into longer life spans. On the other hand, a specific focus also will be placed on exploring a comparative analysis of a select group of representative OECD countries, focusing on how their health expenditure influences child mortality rates under the age of 5, this comparative study aims to uncover regional differences and insights into how distinct health system structures and spending levels impact crucial health outcomes, specifically in child health. 
 
