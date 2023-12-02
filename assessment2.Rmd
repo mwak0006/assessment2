@@ -1,5 +1,5 @@
 ---
-title: "Assessment 2"
+title: "Economic Indicators and Health Outcomes: <br><small>An Analysis of GNI and Health Expenditure Impact in OECD countries</small>"
 author: "Mitchell Wake and Hongmei Zhang"
 date: "2023-11-07"
 output: 
@@ -230,7 +230,7 @@ Our comprehensive analysis of the relationship between economic indicators and h
 
 Furthermore, the examination of health expenditure as a percentage of GDP reveals a generally negative correlation with infant mortality rates and a positive correlation with life expectancy. This finding suggests that higher healthcare investment is beneficial, but the impact is not uniform across all OECD countries. The cases of the USA and Mexico are particularly illuminating. Despite high health expenditure, the USA shows a less pronounced increase in life expectancy at birth, while Mexico, with its unique challenges, demonstrates that high spending does not always translate into better health outcomes. These variations point to the necessity of considering factors beyond financial health investment, such as efficiency of healthcare delivery and socio-economic conditions.
 
-In conclusion, this study provides critical evidence of the links between economic health indicators and health outcomes. While increased economic wealth and healthcare spending generally correlate with better health metrics, the relationship is nuanced and influenced by a multitude of factors. These findings emphasize the need for tailored health policies and investments that consider the specific contexts and challenges of each country to optimize health outcomes.
+In conclusion, this study provides critical evidence of the links between economic health indicators and health outcomes. While increased economic wealth and healthcare spending generally correlate with better health metrics, the relationship is nuanced and influenced by a multitude of factors. These findings emphasize the need for tailored health policies and investments by considering the specific contexts and challenges of each country to optimize health outcomes.
 
 
 # References
